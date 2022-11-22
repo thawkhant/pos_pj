@@ -1,0 +1,11 @@
+for clear cache
+
+=> php artisan config:clear
+=>php artisan cache:clear
+=>php artisan config:cache  (x3)
+
+vendor
+
+=> vender => delete
+=> create => composer install
+=> update => composr update
