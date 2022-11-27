@@ -61,6 +61,8 @@ class CategoryController extends Controller
          return redirect()->route('category#list')->with(['updateSuccess'=>"အမျိုးအစားကို အောင်မြင်စွာ မွမ်းမံပြီးပါပြီ ..."]);
      }
 
+
+
     // categoryValidationCheck
     private function categoryValidationCheck($request){
      Validator::make($request->all(),[

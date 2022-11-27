@@ -1,8 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
 
 class AuthController extends Controller
 {
@@ -23,12 +28,6 @@ class AuthController extends Controller
         }
         return redirect()->route('user#home');    // route net ma ya buu
     }
-
-    // Change password page
-    public function changePasswordPage(){
-        return view('admin.category.create');
-    }
-
 
 
 }

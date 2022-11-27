@@ -6,6 +6,16 @@
     <div class="login-form">
         <form action="{{route('login')}}" method="post">
             @csrf
+
+            @if(Session('changeSuccess'))   {{--   session pyan call lite dar--}}
+
+            <div class="col-12">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong><i class="fas fa-check-circle"></i> {{ session('changeSuccess') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            @endif
             <div class="form-group">
                 <label>Email Address</label>
                 <input class="au-input au-input--full" type="email" name="email" placeholder="Email">

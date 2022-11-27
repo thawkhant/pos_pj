@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
@@ -10,7 +11,7 @@ Route::redirect('/','loginPage');
 Route::get('loginPage',[AuthController::class,'loginPage'])->name("auth#loginPage");
 Route::get('registerPage',[AuthController::class,'registerPage'])->name('auth#registerPage');
 
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 
     // dashboard
     Route::get('dashboard',[AuthController::class,'dashboard'])->name('dashboard');
@@ -20,39 +21,32 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     //  de htal mar win yae paw
     //  });
 
-      //  Route::middleware(['admin_auth'])->group(function(){
+        Route::middleware(['admin_auth'])->group(function(){
             // Category
-            Route::group(['prefix'=>'category',"middleware"=>'admin_auth'],function(){
+            Route::prefix('category')->group(function(){
                 Route::get('list',[CategoryController::class,'list'])->name('category#list');
                 Route::get("create/page",[CategoryController::class,'createPage'])->name('category#createPage');
                 Route::post('create',[CategoryController::class,'create'])->name('category#create');
                 Route::get('delete/{id}',[CategoryController::class,'delete'])->name('category#delete');
                 Route::get('edit/{id}',[CategoryController::class,'edit'])->name('category#edit');
                 Route::post('update',[CategoryController::class,'update'])->name('category#update');
-                
-              
-            });
 
-            Route::group(['prefix'=>'admin','middleware'=>'admin_auth'],function(){
-                Route::get("password/changePage",[AuthController::class,'changePasswordPage'])->name("admin#changePasswordPage");
-            });
-            
+           });
 
+            // admin account
+            Route::prefix('adm')->group(function(){
+            // password
+            Route::get('password/changePage',[AdminController::class,'changePasswordPage'])->name('admin#changePasswordPage');
+            Route::post('change/password',[AdminController::class,'changePassword'])->name('admin#changePassword');
 
-   //          // admin Account
-   //         Route::prefix('admin')->group(function(){
-   //             Route::get('password/changePage',[AuthController::class,'changePasswordPage'])->name('admin#changePasswordPage');
-   //         });
-   // });
-
-
-            // Route::get("admin/password/changePage",[AuthController::class,'changePasswordPage'])->name('admin#changePasswordPage');
-           
-
-        
+            // profile
+            Route::get('details',[AdminController::class,'details'])->name('admin#details');
+            Route::get('edit',[AdminController::class,'edit'])->name('admin#edit');
 
 
 
+  });
+                });
 
 // user
 // home
