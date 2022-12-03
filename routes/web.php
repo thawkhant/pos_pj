@@ -3,13 +3,17 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
 // login , register
-Route::redirect('/','loginPage');
-Route::get('loginPage',[AuthController::class,'loginPage'])->name("auth#loginPage");
-Route::get('registerPage',[AuthController::class,'registerPage'])->name('auth#registerPage');
+Route::middleware(['admin_auth'])->group(function (){
+    Route::redirect('/','loginPage');
+
+    Route::get('loginPage',[AuthController::class,'loginPage'])->name("auth#loginPage");
+    Route::get('registerPage',[AuthController::class,'registerPage'])->name('auth#registerPage');
+});
 
 Route::middleware(['auth'])->group(function () {
 
@@ -42,10 +46,22 @@ Route::middleware(['auth'])->group(function () {
             // profile
             Route::get('details',[AdminController::class,'details'])->name('admin#details');
             Route::get('edit',[AdminController::class,'edit'])->name('admin#edit');
-
-
+            Route::post('update/{id}',[AdminController::class,'update'])->name('admin#update');
 
   });
+
+            // products
+            Route::prefix('product')->group(function (){
+               Route::get('list',[ProductController::class,'list'])->name('product#list');
+               Route::get('createPage',[ProductController::class,'createPage'])->name('product#createPage');
+               Route::post('createPage',[ProductController::class,'create'])->name('product#create');
+               Route::get('delete/{id}',[ProductController::class,'delete'])->name('product#delete');
+               Route::get('edit/{id}',[ProductController::class,'edit'])->name('product#edit');
+               Route::get('updatePage/{id}',[ProductController::class,'updatePage'])->name('product#updatePage');
+               Route::post('update',[ProductController::class,'update'])->name('product#update');
+            });
+
+
                 });
 
 // user

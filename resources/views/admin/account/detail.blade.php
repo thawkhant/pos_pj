@@ -1,14 +1,23 @@
 
-
 @extends('admin.layouts.master')
 
-@section('title','Change Password')
+@section('title','Admin Details')
 
 @section('content')
 
 
     <!-- MAIN CONTENT-->
     <div class="main-content">
+        @if(Session('update'))   {{--   session pyan call lite dar--}}
+
+        <div class="col-5 offset-7">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong><i class="fas fa-check-circle"></i> {{ session('update') }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        @endif
+
         <div class="section__content section__content--p30">
             <div class="container-fluid">
                 <div class="col-lg-10 offset-1">
@@ -27,18 +36,19 @@
                                                 <img src='{{ asset("image/defaultUser.png") }}' class="shadow-md" />
                                             </a>
                                         @else
-                                            <a href="#">
-                                                <img src=''/>
+                                            <a href="#" >
+                                                <img src={{ asset("storage/".Auth::user()->image) }} width="400px"/>
                                             </a>
                                         @endif
                                 </div>
 
                                 <div class="col-5 offset-1">
 
-                                    <h4 class="my-3 text-secondary"><i class="fas fa-user-circle text-primary mr-5"></i> {{ Auth::user()->name }}</h4>
+                                    <h4 class="my-3 text-secondary"><i class="fas fa-user-edit text-primary mr-5"></i> {{ Auth::user()->name }}</h4>
                                     <h4 class="my-3 text-secondary"><i class="fas fa-envelope text-warning mr-5"></i> {{ Auth::user()->email }}</h4>
                                     <h4 class="my-3 text-secondary"><i class="fas fa-phone text-success mr-5"></i> {{ Auth::user()->phone }}</h4>
                                     <h4 class="my-3 text-secondary"><i class="fas fa-map-marker-alt text-info mr-5"></i> {{ Auth::user()->address }}</h4>
+                                    <h4 class="my-3 text-secondary"><i class="fas fa-venus-mars text-danger mr-5"></i> {{ Auth::user()->gender}}</h4>
                                     <h4 class="my-3 text-secondary"><i class="fas fa-calendar-check text-primary mr-5"></i> {{ Auth::user()->created_at->format('j-F-Y') }}</h4>
                                 </div>
 

@@ -81,7 +81,7 @@
                        <div class="col-3">
                            <h4 class="text-secondary">Search Key : <span class="text-danger">{{ request('key') }} </span></h4>
                        </div>
-                       <div class="col-3 offset-6">
+                       <div class="col-4 offset-5">
                            <form action="{{ route('category#list') }}" method="get">
                                @csrf
                                <div class="d-flex">

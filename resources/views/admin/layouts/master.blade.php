@@ -35,6 +35,8 @@
 
     <!-- Main CSS-->
     <link href={{ asset("admin/css/theme.css") }} rel="stylesheet" media="all">
+    <!-- font awesome link-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
@@ -54,6 +56,11 @@
                     <li>
                         <a href={{ route('category#list') }}>
                             <i class="fas fa-list-ul"></i> Category</a>
+                    </li>
+
+                    <li>
+                        <a href={{ route('product#list') }}>
+                            <i class="fas fa-pizza-slice "></i> Product</a>
                     </li>
                 </ul>
             </nav>
@@ -126,7 +133,7 @@
                                             </a>
                                         @else
                                             <a href="#">
-                                                <img src=''/>
+                                                <img src={{ asset("storage/".Auth::user()->image) }} />
                                             </a>
                                         @endif
                                     </div>
@@ -142,7 +149,7 @@
                                                     </a>
                                                 @else
                                                 <a href="#">
-                                                    <img src=''/>
+                                                    <img src={{ asset("storage/".Auth::user()->image) }} />
                                                 </a>
                                                 @endif
                                             </div>

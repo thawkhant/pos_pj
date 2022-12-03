@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -61,6 +63,63 @@ class AdminController extends Controller
     // direct admin profile page
     public function edit(){
         return view('admin.account.edit');
+    }
+
+    // update account
+    public function update($id,Request $request){
+        // dd($id,$request->all());
+        $this->accountValidationCheck($request);
+        $data = $this->getUserData($request);
+        // fro image
+        if($request->hasFile('image')){
+            // 1 old image name | check => shi yin delete | ma shi yin store
+            $dbImage = User::where('id',$id)->first();
+            $dbImage = $dbImage->image;
+            // dd($dbImage);
+
+            if($dbImage != null){
+                Storage::delete('public/'.$dbImage);
+            }
+
+           $fileName = uniqid() . $request->file('image')->getClientOriginalName();
+            // dd($fileName);
+            $request->file('image')->storeAs('public',$fileName);
+            $data['image'] = $fileName;
+        }
+
+        User::where('id',$id)->update($data);
+        return redirect()->route('admin#details')->with(['update'=>'စီမံခန့်ခွဲသူအကောင့်ကို အောင်မြင်စွာ မွမ်းမံပြီးပါပြီ...']);
+    }
+
+    // request user data
+    private function getUserData($request){
+        return [
+          'name' => $request->name,
+          'email' => $request->email,
+          'gender' => $request->gender,
+          'phone' => $request->phone,
+          'address' => $request->address,
+            'updated_at' => Carbon::now()
+        ];
+    }
+
+    // account validation check
+    private function accountValidationCheck($request){
+        Validator::make($request->all(),[
+            'name' => 'required',
+            'email' => 'required',
+            'gender' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'image' => 'mimes:png,jpg,jpeg|file'
+        ],[
+            'name.required' => "အမည်ဖြည့်ရန် လိုအပ်ပါသည်",
+            'email.required' => 'email ဖြည့်ရန် လိုအပ်ပါသည်',
+            'gender.required' => 'ကျား | မ ဖြည့်စွက်ရန် လိုအပ်ပါသည်',
+            'phone.required' => 'ဖုန်းနံပါတ်ဖြည့်ပေးရပါမယ်',
+            'address.required' => 'လိပ်စာဖြည့်စွက်ရန် လိုအပ်ပါသည်',
+            'image.mimes' => 'ဖိုင်အမျိုးအစားသည် PNG | JPG | JPEG ဖြစ်ရမည်'
+        ])->validate();
     }
 
 
