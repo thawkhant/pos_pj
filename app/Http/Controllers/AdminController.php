@@ -91,6 +91,28 @@ class AdminController extends Controller
         return redirect()->route('admin#details')->with(['update'=>'စီမံခန့်ခွဲသူအကောင့်ကို အောင်မြင်စွာ မွမ်းမံပြီးပါပြီ...']);
     }
 
+    //  admin list
+    public function list(){
+        $admin = User::when(request('key'),function($query){
+           $query->orWhere('name','like','%'.request('key').'%')
+               ->orWhere('email','like','%'.request('key').'%')
+               ->orWhere('gender','like','%'.request('key').'%')
+               ->orWhere('phone','like','%'.request('key').'%')
+               ->orWhere('address','like','%'.request('key').'%');
+        })
+            ->where('role','admin')->paginate(3);
+        $admin->appends(request()->all());
+        //  dd($admin->toArray());
+     return view('admin.account.list',compact('admin'));
+    }
+
+    // delete admin account
+    public function delete($id){
+        //  dd("delete");
+        User::where('id',$id)->delete();
+        return back()->with(['deleteSuccess' => 'စီမံခန့်ခွဲသူအကောင့်ကို ဖျက်လိုက်ပါပြီ...']);
+    }
+
     // request user data
     private function getUserData($request){
         return [

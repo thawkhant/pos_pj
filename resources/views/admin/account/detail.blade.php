@@ -33,7 +33,11 @@
                                 <div class="col-3 offset-2">
                                         @if(Auth::user()->image == null)
                                             <a href="#">
-                                                <img src='{{ asset("image/defaultUser.png") }}' class="shadow-md" />
+                                                @if(Auth::user()->gender == 'male')
+                                                    <img  src="{{ asset('image/defaultUser.png') }}">
+                                                @else
+                                                    <img  src="{{ asset('image/female.jpg') }}">
+                                                @endif
                                             </a>
                                         @else
                                             <a href="#" >

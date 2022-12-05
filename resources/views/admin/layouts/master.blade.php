@@ -129,7 +129,11 @@
                                     <div class="image">
                                         @if(Auth::user()->image == null)
                                             <a href="#">
-                                                <img src={{ asset("image/defaultUser.png") }} />
+                                                @if(Auth::user()->gender == 'male')
+                                                    <img  src="{{ asset('image/defaultUser.png') }}">
+                                                @else
+                                                    <img  src="{{ asset('image/female.jpg') }}">
+                                                @endif
                                             </a>
                                         @else
                                             <a href="#">
@@ -145,7 +149,11 @@
                                             <div class="image">
                                                 @if(Auth::user()->image == null)
                                                     <a href="#">
-                                                        <img src={{ asset("image/defaultUser.png") }} />
+                                                        @if(Auth::user()->gender == 'male')
+                                                            <img  src="{{ asset('image/defaultUser.png') }}">
+                                                        @else
+                                                            <img  src="{{ asset('image/female.jpg') }}">
+                                                        @endif
                                                     </a>
                                                 @else
                                                 <a href="#">
@@ -164,6 +172,12 @@
                                             <div class="account-dropdown__item">
                                                 <a href="{{ route('admin#details') }}">
                                                     <i class="fas fa-user text-primary"></i>Account</a>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__body">
+                                            <div class="account-dropdown__item">
+                                                <a href="{{ route('admin#list') }}">
+                                                    <i class="fas fa-users text-secondary"></i>Admin Lists</a>
                                             </div>
                                         </div>
                                         <div class="account-dropdown__body">

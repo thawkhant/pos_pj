@@ -44,7 +44,7 @@
                                     <span class="my-3 btn bg-dark text-white mr-1"><i class="fas fa-money-bill-wave "></i> {{ $pizza->price }} kyats</span>
                                     <span class="my-3 btn bg-dark text-white mr-1"><i class="fas fa-hourglass-end "></i> {{ $pizza->waiting_time }} mins</span>
                                     <span class="my-3 btn bg-dark text-white mr-1"><i class="fas fa-eye"></i> {{ $pizza->view_count }}</span>
-                                    <span class="my-3 btn bg-dark text-white"> <i class="fas fa-link"></i> {{ $pizza->category_id   }}</span>
+                                    <span class="my-3 btn bg-dark text-white"> <i class="fas fa-link"></i> {{ $pizza->category_name   }}</span>
                                     <span class="my-3 btn bg-dark text-white"><i class="far fa-clock"></i> {{ $pizza->created_at->format('j-F-Y') }}</span>
                                     <div class="my-3 text-secondary"><i class="far fa-comment-alt text-warning"></i> Details </div>
                                     <div class="">{{ $pizza->description }}</div>

@@ -125,12 +125,12 @@
 {{--                                                <i class="fas fa-eye"></i>--}}
 {{--                                            </button>--}}
                                           <a href="{{ route('category#edit',$category->id) }}" class="mr-1">
-                                              <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                              <button class="item me-2" data-toggle="tooltip" data-placement="top" title="Edit">
                                                   <i class="fas fa-edit text-primary"></i>
                                               </button>
                                           </a>
                                            <a href="{{ route('category#delete',$category->id) }}" class="ml-1">
-                                               <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                               <button class="item me-2" data-toggle="tooltip" data-placement="top" title="Delete">
                                                    <i class="zmdi zmdi-delete text-danger"></i>
                                                </button>
                                            </a>
