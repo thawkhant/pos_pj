@@ -128,7 +128,7 @@
                                                 @if(Auth::user()->id == $a->id)
 
                                                 @else
-                                                    <a href="{{ route('admin#delete',$a->id) }}">
+                                                    <a href="{{ route('admin#changeRole',$a->id) }}">
                                                         <button class="item me-2" data-toggle="tooltip" data-placement="top" title="Change Role">
                                                             <i class="fas fa-level-down-alt text-warning"></i>
                                                         </button>

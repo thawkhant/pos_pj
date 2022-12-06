@@ -113,6 +113,26 @@ class AdminController extends Controller
         return back()->with(['deleteSuccess' => 'စီမံခန့်ခွဲသူအကောင့်ကို ဖျက်လိုက်ပါပြီ...']);
     }
 
+    // change Role
+    public function changeRole($id){
+        $account = User::where('id',$id)->first();
+        return view('admin.account.changeRole',compact('account'));
+    }
+
+   // change
+    public function change($id,Request $request){
+        $data = $this->requestUserData($request);
+        User::where('id',$id)->update($data);
+        return redirect()->route('admin#list');
+    }
+
+   // requestUserData
+     private function requestUserData($request){
+        return [
+            'role' => $request->role
+        ];
+     }
+
     // request user data
     private function getUserData($request){
         return [
